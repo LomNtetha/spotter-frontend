@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import TripForm from './components/TripForm';
+import Map from './components/Map';
+import LogSheet from './components/LogSheet';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [route, setRoute] = useState(null);
+  const [logs, setLogs] = useState([]);
+
+  const handleTripSubmit = (data) => {
+    // Set route and logs based on API response
+    setRoute(data.route);
+    setLogs(data.logs);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <TripForm onSubmit={handleTripSubmit} />
+      {route && <Map route={route} />}
+      {logs.length > 0 && <LogSheet logs={logs} />}
     </div>
   );
-}
+};
 
 export default App;
