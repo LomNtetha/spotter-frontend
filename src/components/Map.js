@@ -13,7 +13,7 @@ const center = {
 
 const Map = ({ route }) => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCXPcoHAY2XLPIaMPGk2MKvASnP8o7Ls6E', // Replace with your API key
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   if (loadError) return <div>Error loading maps</div>;
@@ -22,7 +22,7 @@ const Map = ({ route }) => {
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
-      zoom={7}
+      zoom={10}
       center={center}
     >
       {route && <DirectionsRenderer directions={route} />}
